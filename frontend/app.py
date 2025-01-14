@@ -3,6 +3,10 @@ import pandas as pd
 import requests
 import plotly.express as px
 import io
+import os
+
+# Get backend URL from environment variable, default to localhost if not set
+BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:8000')
 
 st.set_page_config(page_title="Data Science Dashboard", layout="wide")
 
@@ -12,8 +16,16 @@ st.title("Data Science Dashboard")
 uploaded_file = st.file_uploader("Upload CSV or Excel file", type=['csv', 'xlsx', 'xls'])
 
 if uploaded_file is not None:
-    # Read the file
+    # Send file to backend for processing
     try:
+        files = {'file': uploaded_file}
+        response = requests.post(f"{BACKEND_URL}/upload", files=files)
+        if response.status_code != 200:
+            st.error("Error processing file")
+            return
+        
+        # Read the file for local processing
+        uploaded_file.seek(0)
         if uploaded_file.name.endswith('.csv'):
             df = pd.read_csv(uploaded_file)
         else:

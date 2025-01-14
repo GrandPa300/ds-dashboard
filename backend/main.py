@@ -1,7 +1,19 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import io
+import logging
+from starlette.middleware.base import BaseHTTPMiddleware
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("uvicorn.access")
+
+class HealthCheckFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "GET /health" not in record.getMessage()
+
+# logger.addFilter(HealthCheckFilter())
 
 app = FastAPI()
 

@@ -51,6 +51,8 @@ pip install -r requirements.txt
 
 ## Usage
 
+### Standard Method
+
 1. Start the backend server:
 ```bash
 cd backend
@@ -64,6 +66,26 @@ streamlit run app.py
 ```
 
 3. Open your browser and navigate to `http://localhost:8501`
+
+### Docker Method
+
+The application can be run using Docker:
+
+1. Navigate to the docker directory:
+```bash
+cd docker
+```
+
+2. Start both services using Docker Compose:
+```bash
+docker-compose up
+```
+
+3. Open your browser and navigate to `http://localhost:8501`
+
+The application uses two containers:
+- Backend service on port 8000
+- Frontend service on port 8501
 
 ## Dependencies
 
