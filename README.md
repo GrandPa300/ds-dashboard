@@ -116,3 +116,77 @@ The application includes comprehensive error handling for:
 - Data processing errors
 - Invalid file formats
 - Runtime exceptions
+
+## Testing
+
+The project uses pytest for both backend and frontend testing. Tests are organized in a structured manner:
+
+```
+tests/
+├── __init__.py
+├── backend/
+│   ├── __init__.py
+│   └── test_main.py      # API endpoint tests
+└── frontend/
+    ├── __init__.py
+    └── test_app.py       # Frontend component tests
+```
+
+### Running Tests
+
+1. Ensure you're in the correct conda environment:
+```bash
+conda activate ds-dashboard
+```
+
+2. Run all tests:
+```bash
+pytest
+```
+
+3. Run specific test suites:
+```bash
+# Backend tests only
+pytest -v -m backend
+
+# Frontend tests only
+pytest -v -m frontend
+
+# Tests in specific directory
+pytest tests/backend/
+pytest tests/frontend/
+```
+
+### Test Coverage
+
+Backend tests cover:
+- File upload functionality
+- CSV and Excel file processing
+- Error handling for invalid formats
+- Health check endpoint
+- Data processing and statistics generation
+
+Frontend tests cover:
+- Component rendering
+- User interface interactions
+- File upload component functionality
+
+### Adding New Tests
+
+1. Backend Tests:
+   - Add new test functions in `tests/backend/test_main.py`
+   - Use `@pytest.mark.backend` decorator
+   - Follow existing patterns for API testing
+
+2. Frontend Tests:
+   - Add new test functions in `tests/frontend/test_app.py`
+   - Use `@pytest.mark.frontend` decorator
+   - Follow component testing best practices
+
+### Test Configuration
+
+The `pytest.ini` file configures test discovery and execution:
+- Automatic test discovery in the `tests` directory
+- Test file naming pattern: `test_*.py`
+- Custom markers for backend and frontend tests
+- Verbose test output by default
